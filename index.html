@@ -1,0 +1,482 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+  <script src="ruffle/ruffle.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Noto Serif CJK SC", "SimSun", "Georgia", serif;
+      background-color: #f4ece1;
+    }
+
+    .all {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .nav {
+      width: 100%;
+      position: relative;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background-color: #f3eae1;
+    }
+
+    .nav-top {
+      width: 100%;
+      max-width: 1920px;
+      height: 157px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-box {
+      height: 100%;
+      width: 480px;
+      flex-shrink: 0;
+    }
+
+    .logo-box img {
+      height: 100%;
+      width: auto;
+      display: block;
+    }
+
+    .slogan-box {
+      text-align: center;
+      color: #1B2437;
+      flex-grow: 1;
+    }
+
+    .slogan-box h2 {
+      font-size: 24px;
+      letter-spacing: 4px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .slogan-box p {
+      font-size: 14px;
+      color: #6C6356;
+      letter-spacing: 2px;
+    }
+
+    .phone-box {
+      width: 300px;
+      text-align: center;
+      color: #1B2437;
+      flex-shrink: 0;
+      margin-right: 20px;
+    }
+
+    .phone-box .phone-icon {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .phone-box .phone-number {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      font-family: "Georgia", serif;
+    }
+
+    .nav-bar {
+      width: 100%;
+      border-top: 1px solid #D2C5B4;
+      border-bottom: 1px solid #D2C5B4;
+      background-color: #f3eae1;
+    }
+
+    .nav-bar ul {
+      list-style: none;
+      width: 100%;
+      max-width: 1920px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .nav-bar li {
+      border-right: 1px solid #D2C5B4;
+      text-align: center;
+      height: 84px;
+    }
+
+    .nav-bar li:first-child {
+      border-left: 1px solid #D2C5B4;
+    }
+
+    .nav-bar li.empty-cell {
+      background-color: transparent;
+    }
+
+    .nav-bar a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      line-height: 84px;
+      text-decoration: none;
+      color: #1B2437;
+      font-size: 22px;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+
+    .nav-bar a:hover {
+      color: antiquewhite;
+      background-color: chocolate;
+    }
+
+    /* ======================================================== */
+    /* 位置容器定位基准 */
+    /* ======================================================== */
+
+    .image-container {
+      position: relative;
+      width: 100%;
+      max-width: 1920px;
+      margin: 0 auto;
+    }
+
+    .image-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .flash-banner {
+      display: block !important;
+      position: absolute !important;
+      left: 0% !important;
+      top: 0% !important;
+      width: 100% !important;
+      height: 25.35% !important;
+      z-index: 5 !important;
+    }
+
+    #container,
+    #container canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .hotspot {
+      position: absolute;
+      border-radius: 50%;
+      text-decoration: none;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .hotspot:hover {
+      background-color: rgba(210, 197, 180, 0.25);
+      transition: background-color 0.2s ease;
+    }
+
+    .scenery-carousel-overlay {
+      position: absolute;
+      left: 17% !important;
+      top: 48% !important;
+      width: 67% !important;
+      height: 19.2% !important;
+      z-index: 8;
+
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* 左侧竖排“园区风貌”侧边栏样式 */
+    .carousel-sidebar {
+      width: 15%;
+      height: 100%;
+      background-color: #14233C;
+      /* 奉天民国墨蓝色 */
+      color: #EFECE5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .carousel-sidebar h3 {
+      writing-mode: vertical-rl;
+      /* 竖排文字 */
+      font-family: "Noto Serif CJK SC", serif;
+      font-size: 2.2vw;
+      /* 使用 vw 确保其随大图等比例缩放 */
+      letter-spacing: 4px;
+      font-weight: bold;
+    }
+
+    .carousel-main {
+      flex-grow: 1;
+      height: 100%;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      /* 🌟 新增：加入基础的过渡属性，为动画做铺垫 */
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+    }
+
+    .carousel-main.changing {
+      opacity: 0.3;
+      transform: scale(1.02);
+    }
+
+    .thumb-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .thumb-dot.active {
+      border-color: #A2825B;
+      transform: scale(1.15);
+      /* 略微放大 */
+      box-shadow: 0 0 12px rgba(162, 130, 91, 0.8);
+    }
+
+    /* 下方控制栏（箭头和圆形缩略图）样式 */
+    .carousel-controls {
+      position: absolute;
+      bottom: 5%;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      /* 组件间距 */
+      z-index: 9;
+    }
+
+    .ctrl-btn {
+      background: rgba(255, 255, 255, 0.7);
+      /* 半透明白色 */
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #14233C;
+      user-select: none;
+    }
+
+    .ctrl-btn:hover {
+      background: #A2825B;
+      /* 奉天民国古铜金 */
+      color: white;
+    }
+
+    .thumb-wrap {
+      display: flex;
+      gap: 8px;
+      /* 缩略图间距 */
+    }
+  </style>
+</head>
+
+<script>
+  window.RufflePlayer = window.RufflePlayer || {};
+  window.RufflePlayer.config = {
+    "splashScreen": false,
+    "autoplay": "on",
+    "wmode": "transparent",
+    "unmuteOverlay": "hidden",
+    "scale": "exactfit"
+  };
+</script>
+
+<body>
+  <div class="all">
+
+    <div class="nav">
+      <div class="nav-top">
+        <div class="logo-box"><img src="image/logo.png" alt="奉天民国短剧"></div>
+        <div class="slogan-box">
+          <h2>奉天民国微短剧产业园官网</h2>
+          <p>为您提供系统化规划设计方案</p>
+        </div>
+        <div class="phone-box">
+          <span class="phone-icon">☎</span>
+          <span class="phone-number">0123-4567-7810</span>
+        </div>
+      </div>
+      <div class="nav-bar">
+        <ul>
+          <li class="empty-cell"></li>
+          <li class="empty-cell"></li>
+          <li class="empty-cell"></li>
+          <li><a href="index.html">网站首页</a></li>
+          <li><a href="a.html">园区介绍</a></li>
+          <li><a href="b.html">短剧服务</a></li>
+          <li><a href="c.html">娱乐服务</a></li>
+          <li><a href="d.html">加盟服务</a></li>
+          <li><a href="d.html">合作伙伴</a></li>
+          <li><a href="e.html">在线留言</a></li>
+          <li><a href="e.html">联系我们</a></li>
+          <li class="empty-cell"></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="image-container">
+
+      <img src="image/首屏.png" />
+
+      <object class="flash-banner" data="banner.swf" type="application/x-shockwave-flash"
+        style="left: 0%; top: 25%; width: 100%; height: 35%;">
+        <param name="movie" value="banner.swf" />
+        <param name="play" value="true" />
+        <param name="loop" value="true" />
+        <param name="allowScriptAccess" value="always" />
+      </object>
+
+      <a class="hotspot" href="a.html" title="园区导航" style="left: 22%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
+      <a class="hotspot" href="c.html" title="风景概览"
+        style="left: 37.8%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
+      <a class="hotspot" href="b.html" title="短剧服务" style="left: 54%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
+      <a class="hotspot" href="e.html" title="关于我们"
+        style="left: 69.9%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
+
+      <div class="scenery-carousel-overlay">
+        <div class="carousel-sidebar">
+          <h3>园区风貌</h3>
+        </div>
+
+        <div class="carousel-main" id="carouselMain">
+          <div class="carousel-controls">
+            <button class="ctrl-btn ctrl-prev" onclick="changeSlide(-1)">&lt;</button>
+
+            <div class="thumb-wrap" id="thumbContainer"></div>
+
+            <button class="ctrl-btn ctrl-next" onclick="changeSlide(1)">&gt;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  </div>
+
+  <script>
+    const slideImages = [
+      'image/scenery1.png',
+      'image/scenery2.png',
+      'image/scenery3.png',
+    ];
+
+    let currentSlideIndex = 0;
+    let autoPlayTimer = null;
+    const playSpeed = 3000; // 3秒切换一次
+
+    // 动态渲染圆形缩略图
+    const thumbContainer = document.getElementById('thumbContainer');
+    slideImages.forEach((imgSrc, index) => {
+      const dot = document.createElement('div');
+      dot.className = `thumb-dot ${index === 0 ? 'active' : ''}`;
+      dot.style.backgroundImage = `url('${imgSrc}')`;
+      dot.onclick = () => {
+        updateCarousel(index);
+        resetAutoPlay();
+      };
+      thumbContainer.appendChild(dot);
+    });
+
+    // 🌟 核心修改：带过渡动画的图片更新逻辑
+    function updateCarousel(index) {
+      currentSlideIndex = index;
+      const mainContainer = document.getElementById('carouselMain');
+
+      // 1. 进入切换状态：立刻加上 changing 类，触发 CSS 的透明度和放大效果
+      mainContainer.classList.add('changing');
+
+      // 2. 等待 50 毫秒（给浏览器一个反应时间），在暗中把背景图和缩略图状态换掉
+      setTimeout(() => {
+        mainContainer.style.backgroundImage = `url('${slideImages[currentSlideIndex]}')`;
+
+        // 更新缩略图高亮
+        const dots = document.querySelectorAll('.thumb-dot');
+        dots.forEach((dot, idx) => {
+          if (idx === currentSlideIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+
+        // 3. 图片换好后，移除 changing 类，恢复不透明状态，CSS 会自动执行平滑的淡入
+        mainContainer.classList.remove('changing');
+      }, 50);
+    }
+
+    // 前后翻页按钮逻辑
+    function changeSlide(direction) {
+      let newIndex = currentSlideIndex + direction;
+      if (newIndex >= slideImages.length) newIndex = 0;
+      if (newIndex < 0) newIndex = slideImages.length - 1;
+      updateCarousel(newIndex);
+    }
+
+    // 自动轮播控制
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayTimer = setInterval(() => {
+        changeSlide(1);
+      }, playSpeed);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    function resetAutoPlay() {
+      stopAutoPlay();
+      startAutoPlay();
+    }
+
+    // 绑定鼠标悬停事件
+    const carouselOverlay = document.querySelector('.scenery-carousel-overlay');
+    carouselOverlay.addEventListener('mouseenter', stopAutoPlay);
+    carouselOverlay.addEventListener('mouseleave', startAutoPlay);
+
+    // 初始化
+    updateCarousel(0);
+    startAutoPlay();
+  </script>
+</body>
+
+</html>

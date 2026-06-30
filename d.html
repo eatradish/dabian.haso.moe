@@ -96,7 +96,7 @@
       font-family: "Georgia", serif;
     }
 
-    .nav-bar {
+     .nav-bar {
       width: 100%;
       border-top: 1px solid #D2C5B4;
       border-bottom: 1px solid #D2C5B4;
@@ -112,20 +112,33 @@
       grid-template-columns: repeat(12, 1fr);
     }
 
+    /* 1. 所有格子的默认边框（只有右边框） */
     .nav-bar li {
-      border-right: 1px solid #D2C5B4;
+      border-right: 1px solid #D2C5B4 !important;
+      border-left: none !important;
       text-align: center;
       height: 84px;
+      box-sizing: border-box;
     }
 
-    .nav-bar li:first-child {
-      border-left: 1px solid #D2C5B4;
-    }
-
+    /* 2. 彻底去掉空格子的所有线 */
     .nav-bar li.empty-cell {
-      background-color: transparent;
+      background-color: transparent !important;
+      border-right: none !important;
+      border-left: none !important;
     }
 
+    /* 3. 🌟 绝对生效：直接给绑了名字的“网站首页”强制加上左边框 */
+    .nav-bar li.first-menu {
+      border-left: 1px solid #D2C5B4 !important;
+    }
+
+    /* 4. 长文本横跨 2 列 */
+    .nav-bar li.double-cell {
+      grid-column: span 2;
+    }
+
+    /* 5. 文本不换行 */
     .nav-bar a {
       display: block;
       width: 100%;
@@ -136,6 +149,7 @@
       font-size: 22px;
       font-weight: bold;
       transition: all 0.2s ease;
+      white-space: nowrap !important;
     }
 
     .nav-bar a:hover {

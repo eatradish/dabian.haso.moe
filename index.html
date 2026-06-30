@@ -134,6 +134,11 @@
       font-size: 22px;
       font-weight: bold;
       transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-bar li.double-cell {
+      grid-column: span 2;
     }
 
     .nav-bar a:hover {
@@ -334,15 +339,16 @@
         <ul>
           <li class="empty-cell"></li>
           <li class="empty-cell"></li>
-          <li class="empty-cell"></li>
+
           <li><a href="index.html" target="_blank">网站首页</a></li>
           <li><a href="a.html" target="_blank">园区介绍</a></li>
           <li><a href="b.html" target="_blank">短剧服务</a></li>
           <li><a href="c.html" target="_blank">娱乐服务</a></li>
-          <li><a href="d.html" target="_blank">加盟服务</a></li>
-          <li><a href="d.html" target="_blank">合作伙伴</a></li>
-          <li><a href="e.html" target="_blank">在线留言</a></li>
-          <li><a href="e.html" target="_blank">联系我们</a></li>
+
+          <li class="double-cell"><a href="d.html" target="_blank">加盟服务 &nbsp; 合作伙伴</a></li>
+          <li class="double-cell"><a href="e.html" target="_blank">在线留言 &nbsp; 联系我们</a></li>
+
+          <li class="empty-cell"></li>
           <li class="empty-cell"></li>
         </ul>
       </div>
@@ -360,10 +366,12 @@
         <param name="allowScriptAccess" value="always" />
       </object>
 
-      <a class="hotspot" href="a.html" target="_blank" title="园区导航" style="left: 22%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
+      <a class="hotspot" href="a.html" target="_blank" title="园区导航"
+        style="left: 22%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
       <a class="hotspot" href="c.html" target="_blank" title="风景概览"
         style="left: 37.8%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
-      <a class="hotspot" href="b.html" target="_blank" title="短剧服务" style="left: 54%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
+      <a class="hotspot" href="b.html" target="_blank" title="短剧服务"
+        style="left: 54%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
       <a class="hotspot" href="e.html" target="_blank" title="关于我们"
         style="left: 69.9%; top: 40.3%; width: 7%; aspect-ratio: 1 / 1;"></a>
 
